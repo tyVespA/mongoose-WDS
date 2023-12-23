@@ -4,6 +4,7 @@ const User = require("./User");
 mongoose.connect("mongodb://localhost:27017/testdb1");
 
 async function run() {
+  // we can use new User or User.create
   // const user = new User({ name: "Marco", age: "88" });
   // await user.save();
   try {
@@ -28,3 +29,29 @@ async function run() {
 }
 
 run();
+
+// QUERIES
+// we use .where
+
+async function findUser() {
+  // lt is less than, gt greater than
+  const user = await User.where("age").lt("12");
+  const user2 = await User.where("name").equals("Kyle");
+  // we can chain where(s)
+  const user3 = await User.where("age")
+    .lt("90")
+    .gt("12")
+    .where("name")
+    .equals("Polo")
+    // limits the results
+    .limit(1)
+    // only returns the hobbies
+    .select("hobbies");
+
+  user[0].bestFriend = "658567b8dd21d2e73fe6e4de";
+  await user[0].save;
+
+  console.log(user, user2, user3);
+}
+
+findUser();
