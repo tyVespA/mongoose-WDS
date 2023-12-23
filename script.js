@@ -48,10 +48,9 @@ async function findUser() {
     // only returns the hobbies
     .select("hobbies");
 
-  user[0].bestFriend = "658567b8dd21d2e73fe6e4de";
-  await user[0].save;
-
   console.log(user, user2, user3);
+  const userInstance = user[0];
+  userInstance.sayHi();
 }
 
 findUser();
